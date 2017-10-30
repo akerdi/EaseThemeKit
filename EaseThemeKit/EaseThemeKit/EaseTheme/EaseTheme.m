@@ -7,6 +7,7 @@
 //
 
 #import "EaseTheme.h"
+#import "ETManager.h"
 
 #import <objc/message.h>
 
@@ -21,8 +22,25 @@ NSString *const kET2DAnimatedSELTail = @"animated:";
 
 NSString *const kETArgColor = @"com.et.arg.color";
 
+@interface EaseTheme ()
+
+@property (nonatomic, assign) UIImageRenderingMode imageRenderingMode;
+
+@property (nonatomic, strong) NSDictionary *innerSkins1D;
+
+@property (nonatomic, strong) NSDictionary *innerSkins2D;
+
+@end
 
 @implementation EaseTheme
+
+- (instancetype)init {
+    @throw [NSException exceptionWithName:NSInvalidArgumentException reason:NSLocalizedString(@"Please use +easeThemeWithThemer: method instead", nil) userInfo:nil];
+}
+
+- (NSDictionary *)innerSkins1D {
+    if (_inner)
+}
 
 - (void)updateThemes {
     
@@ -30,34 +48,36 @@ NSString *const kETArgColor = @"com.et.arg.color";
 
 #pragma mark - Message Methods
 
-- (instancetype)send1PMsgEnumWithName:(NSString *)name keyPath:(NSString *)keyPath arg:(NSString *)arg valueBlock:(NSInteger (^)(NSString *))valueBlock {
+- (instancetype)send1DMsgEnumWithName:(NSString *)name keyPath:(NSString *)keyPath arg:(NSString *)arg valueBlock:(NSInteger (^)(NSString *))valueBlock {
     return nil;
 }
 
-- (instancetype)send1PMsgObjectWithName:(NSString *)name keyPath:(NSString *)keyPath arg:(NSString *)arg valueBlock:(id(^)(NSString *))valueBlock {
+- (instancetype)send1DMsgObjectWithName:(NSString *)name keyPath:(NSString *)keyPath arg:(NSString *)arg valueBlock:(id(^)(NSString *))valueBlock {
     SEL sel = NULL;
 }
 
-- (SEL)prepareForSkin1PWithName:(NSString *)name keyPath:(NSString *)keyPath argKey:(NSString *)argKey {
+- (SEL)prepareForSkin1DWithName:(NSString *)name keyPath:(NSString *)keyPath argKey:(NSString *)argKey {
     const char *charName = name.UTF8String;
     SEL sel = NULL;
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:0];
     [dict setObject:keyPath forKey:argKey];
+    self get
 }
 
 
 
-- (EaseThemeBlock)et_floatBlockWithName:(NSString *)name {
-    
-}
+
 - (EaseThemeBlock)et_colorBlockWithName:(NSString *)name {
     return ^EaseTheme *(NSString *path) {
-        return [self send1PMsgObjectWithName:name keyPath:path arg:kETArgColor valueBlock:^NSObject *(NSString *keyPath) {
-            return <#expression#>
-        }]
-    }
+        return [self send1DMsgObjectWithName:name keyPath:path arg:kETArgColor valueBlock:^NSObject *(NSString *keyPath) {
+            return [ETManager et_colorWithPath:path];
+        }];
+    };
 }
+//- (EaseThemeBlock)et_floatBlockWithName:(NSString *)name {
+//
+//}
 //- (EaseThemeBlock)et_cgColorBlockWithName:(NSString *)name {
 //
 //}

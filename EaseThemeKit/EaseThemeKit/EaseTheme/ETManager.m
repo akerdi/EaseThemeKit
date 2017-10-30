@@ -12,6 +12,10 @@
 static NSString *kETFileExtensionPlist = @"plist";
 static NSString *kETFileExtensionJSON = @"json";
 
+static inline UIColor *(ETRGBHex)(NSUInteger hex) {
+    return [UIColor colorWithRed:((float)((hex&0xFF0000)>>16))/255.0 green:((float)((hex&0xFF00)>>16))/255.0 blue:((float)((hex&0xFF)>>16))/255.0 alpha:1.0];
+}
+
 @interface ETManager ()
 @property (nonatomic, strong) NSHashTable<EaseTheme *> *weakArray;
 
@@ -104,16 +108,20 @@ static ETManager *_easeThemeManager;
 
 #pragma mark - fetch resource
 
-
-
 + (NSDictionary *)getEaseThemeConfigFileData {
     if (_themeDic) {
         return _themeDic;
     }
     if (!ISValidString(_resourcesPath)) {
-        _resourcesPath =
+        _resourcesPath = [self getCurrentThemeName];
+        NSData *data = [NSData dataWithContentsOfFile:_resourcesPath];
+        if (!data) return nil;
+        _themeDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+    }else{
+        _themeDic = [NSDictionary dictionaryWithContentsOfFile:_resourcesPath];
     }
-    NSDictionary *figsFile = [NSDictionary dictionaryWithContentsOfFile:_resourcesPath];
+    if (!_themeDic||[_themeDic isKindOfClass:[NSDictionary class]]) return nil;
+    return _themeDic;
 }
 
 @end
@@ -121,7 +129,36 @@ static ETManager *_easeThemeManager;
 @implementation ETManager (ETSerialization)
 
 + (UIColor *)et_colorWithPath:(NSString *)path {
-    NSString *colorHexStr = [self get]
+    NSString *colorHexStr = [[self getEaseThemeConfigFileData] valueForKeyPath:path];
+    if (!colorHexStr) return nil;
+    return [self et_colorFromString:colorHexStr];
+}
+
+@end
+
+@implementation ETManager (ETTool)
+
++ (UIColor *)et_colorFromString:(NSString *)hexStr {
+    hexStr = [hexStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if ([hexStr hasPrefix:@"0x"]) {
+        hexStr = [hexStr substringFromIndex:2];
+    }
+    if ([hexStr hasPrefix:@"#"]) {
+        hexStr = [hexStr substringFromIndex:1];
+    }
+    
+    NSUInteger hex = [self _intFromHexString:hexStr];
+    if (hexStr.length>6) {
+        return ETRGBHex(hex);
+    }
+    return ETRGBHex(hex);
+}
+
++ (NSUInteger)_intFromHexString:(NSString *)hexStr {
+    unsigned int hexInt = 0;
+    NSScanner *scanner = [NSScanner scannerWithString:hexStr];
+    [scanner scanHexInt:&hexInt];
+    return hexInt;
 }
 
 @end

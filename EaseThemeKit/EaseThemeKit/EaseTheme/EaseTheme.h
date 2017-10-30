@@ -13,14 +13,14 @@
 @class Class;\
 typedef Class *(^Class##Block)(NSString *);
 
-#define ET2PStateBlockDeclare(Class)\
+#define ET2DStateBlockDeclare(Class)\
 @class Class;\
-typedef Class *(^Class##2PStateBlock)(NSString *, UIControlState);
+typedef Class *(^Class##2DStateBlock)(NSString *, UIControlState);
 
-#define ET2PBoolBlockDeclare(Class)\
-typedef Class *(^Class##2PBoolBlock)(NSString *,BOOL);
+#define ET2DBoolBlockDeclare(Class)\
+typedef Class *(^Class##2DBoolBlock)(NSString *,BOOL);
 
-#define ET2PUIntBlockDeclare(Class)\
+#define ET2DUIntBlockDeclare(Class)\
 typedef Class *(^Class##2DUIntBlock)(NSString *, NSUInteger);
 
 #define ETBlockCustomDeclare(Class)\
@@ -28,8 +28,8 @@ typedef Class *(^Class##CustomBlock)(NSString *property, NSString *keyPath);
 
 
 ETBlockDeclare(EaseTheme)
-ET2PUIntBlockDeclare(EaseTheme)
-ET2PBoolBlockDeclare(EaseTheme)
+ET2DUIntBlockDeclare(EaseTheme)
+ET2DBoolBlockDeclare(EaseTheme)
 @interface EaseTheme : NSObject
 
 @property (strong, nonatomic, readonly) NSDictionary *skins1D;

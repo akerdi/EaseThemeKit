@@ -28,3 +28,10 @@ static inline BOOL (ISValidString)(NSString *inputString) {
 + (UIColor *)et_colorWithPath:(NSString *)path;
 
 @end
+
+
+@interface ETManager (ETTool)
+
++ (UIColor *)et_colorFromString:(NSString *)hexStr;
+
+@end
