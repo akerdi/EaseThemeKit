@@ -7,17 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F92A6E601FA6CD700006AF6B /* ETView.m in Sources */ = {isa = PBXBuildFile; fileRef = F92A6E5F1FA6CD700006AF6B /* ETView.m */; };
 		F9C52F161FA49394002FD5E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C52F151FA49394002FD5E8 /* AppDelegate.m */; };
 		F9C52F191FA49394002FD5E8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C52F181FA49394002FD5E8 /* ViewController.m */; };
 		F9C52F1C1FA49394002FD5E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9C52F1A1FA49394002FD5E8 /* Main.storyboard */; };
 		F9C52F1E1FA49394002FD5E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9C52F1D1FA49394002FD5E8 /* Assets.xcassets */; };
 		F9C52F211FA49394002FD5E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9C52F1F1FA49394002FD5E8 /* LaunchScreen.storyboard */; };
 		F9C52F241FA49394002FD5E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C52F231FA49394002FD5E8 /* main.m */; };
-		F9C52F2F1FA49478002FD5E8 /* SHEaseThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C52F2E1FA49478002FD5E8 /* SHEaseThemeManager.m */; };
-		F9C52F321FA499F4002FD5E8 /* SHEaseTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C52F311FA499F4002FD5E8 /* SHEaseTheme.m */; };
+		F9C52F2F1FA49478002FD5E8 /* ETManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C52F2E1FA49478002FD5E8 /* ETManager.m */; };
+		F9C52F321FA499F4002FD5E8 /* EaseTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C52F311FA499F4002FD5E8 /* EaseTheme.m */; };
+		F9C52F351FA6CCC1002FD5E8 /* ETButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C52F341FA6CCC1002FD5E8 /* ETButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F92A6E5E1FA6CD700006AF6B /* ETView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETView.h; sourceTree = "<group>"; };
+		F92A6E5F1FA6CD700006AF6B /* ETView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETView.m; sourceTree = "<group>"; };
 		F9C52F111FA49394002FD5E8 /* EaseThemeKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EaseThemeKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9C52F141FA49394002FD5E8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F9C52F151FA49394002FD5E8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -28,10 +32,12 @@
 		F9C52F201FA49394002FD5E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F9C52F221FA49394002FD5E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9C52F231FA49394002FD5E8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F9C52F2D1FA49478002FD5E8 /* SHEaseThemeManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHEaseThemeManager.h; sourceTree = "<group>"; };
-		F9C52F2E1FA49478002FD5E8 /* SHEaseThemeManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SHEaseThemeManager.m; sourceTree = "<group>"; };
-		F9C52F301FA499F4002FD5E8 /* SHEaseTheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHEaseTheme.h; sourceTree = "<group>"; };
-		F9C52F311FA499F4002FD5E8 /* SHEaseTheme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SHEaseTheme.m; sourceTree = "<group>"; };
+		F9C52F2D1FA49478002FD5E8 /* ETManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETManager.h; sourceTree = "<group>"; };
+		F9C52F2E1FA49478002FD5E8 /* ETManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETManager.m; sourceTree = "<group>"; };
+		F9C52F301FA499F4002FD5E8 /* EaseTheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EaseTheme.h; sourceTree = "<group>"; };
+		F9C52F311FA499F4002FD5E8 /* EaseTheme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EaseTheme.m; sourceTree = "<group>"; };
+		F9C52F331FA6CCC1002FD5E8 /* ETButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETButton.h; sourceTree = "<group>"; };
+		F9C52F341FA6CCC1002FD5E8 /* ETButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,10 +89,10 @@
 			children = (
 				F9C52F2B1FA493E8002FD5E8 /* Category */,
 				F9C52F2C1FA493E8002FD5E8 /* Components */,
-				F9C52F2D1FA49478002FD5E8 /* SHEaseThemeManager.h */,
-				F9C52F2E1FA49478002FD5E8 /* SHEaseThemeManager.m */,
-				F9C52F301FA499F4002FD5E8 /* SHEaseTheme.h */,
-				F9C52F311FA499F4002FD5E8 /* SHEaseTheme.m */,
+				F9C52F2D1FA49478002FD5E8 /* ETManager.h */,
+				F9C52F2E1FA49478002FD5E8 /* ETManager.m */,
+				F9C52F301FA499F4002FD5E8 /* EaseTheme.h */,
+				F9C52F311FA499F4002FD5E8 /* EaseTheme.m */,
 			);
 			path = EaseTheme;
 			sourceTree = "<group>";
@@ -101,6 +107,10 @@
 		F9C52F2C1FA493E8002FD5E8 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				F9C52F331FA6CCC1002FD5E8 /* ETButton.h */,
+				F9C52F341FA6CCC1002FD5E8 /* ETButton.m */,
+				F92A6E5E1FA6CD700006AF6B /* ETView.h */,
+				F92A6E5F1FA6CD700006AF6B /* ETView.m */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -131,7 +141,7 @@
 		F9C52F091FA49394002FD5E8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = SH;
+				CLASSPREFIX = ET;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = XXT;
 				TargetAttributes = {
@@ -177,11 +187,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9C52F351FA6CCC1002FD5E8 /* ETButton.m in Sources */,
 				F9C52F191FA49394002FD5E8 /* ViewController.m in Sources */,
 				F9C52F241FA49394002FD5E8 /* main.m in Sources */,
-				F9C52F2F1FA49478002FD5E8 /* SHEaseThemeManager.m in Sources */,
-				F9C52F321FA499F4002FD5E8 /* SHEaseTheme.m in Sources */,
+				F9C52F2F1FA49478002FD5E8 /* ETManager.m in Sources */,
+				F9C52F321FA499F4002FD5E8 /* EaseTheme.m in Sources */,
 				F9C52F161FA49394002FD5E8 /* AppDelegate.m in Sources */,
+				F92A6E601FA6CD700006AF6B /* ETView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
