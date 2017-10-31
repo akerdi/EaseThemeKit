@@ -10,4 +10,10 @@
 
 @implementation ETView
 
+- (ETViewBlock)backgroundColor {
+    return (ETViewBlock)[super et_colorBlockWithName:NSStringFromSelector(_cmd)];
+}
+
 @end
+
+ETThemeCategoryImplementation(UIView, ETView);

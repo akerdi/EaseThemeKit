@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "EaseThemeKit.h"
 
 @interface ViewController ()
 
@@ -17,6 +18,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    self.view.et.backgroundColor(@"Global.backgroundColor");
 }
 
 

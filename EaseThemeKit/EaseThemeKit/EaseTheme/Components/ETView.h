@@ -8,6 +8,12 @@
 
 #import "EaseTheme.h"
 
+ETBlockDeclare(ETView)
+
 @interface ETView : EaseTheme
 
+- (ETViewBlock)backgroundColor;
+
 @end
+
+ETThemeCategoryDeclare(UIView, ETView);

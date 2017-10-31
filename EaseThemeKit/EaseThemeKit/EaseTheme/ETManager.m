@@ -9,11 +9,33 @@
 #import "ETManager.h"
 #import "EaseTheme.h"
 
+UIKIT_EXTERN NSString *const kETArgColor;
+
 static NSString *kETFileExtensionPlist = @"plist";
 static NSString *kETFileExtensionJSON = @"json";
 
 static inline UIColor *(ETRGBHex)(NSUInteger hex) {
     return [UIColor colorWithRed:((float)((hex&0xFF0000)>>16))/255.0 green:((float)((hex&0xFF00)>>16))/255.0 blue:((float)((hex&0xFF)>>16))/255.0 alpha:1.0];
+}
+
+SEL _Nullable getSelectorWithPattern(const char * _Nullable prefix, const char * _Nullable key, const char * _Nullable suffix) {
+    size_t prefixLength = prefix ? strlen(prefix) : 0;
+    size_t suffixLength = suffix ? strlen(suffix) : 0;
+    
+    char initial = key[0];
+    if (prefixLength) initial = (char)toupper(initial);
+    size_t initialLength = 1;
+    
+    const char *rest = key + initialLength;
+    size_t restLength = strlen(rest);
+    
+    char selector[prefixLength + initialLength + restLength + suffixLength +1];
+    memcpy(selector, prefix, prefixLength);
+    selector[prefixLength] = initial;
+    memcpy(selector + prefixLength + initialLength, rest, restLength);
+    memcpy(selector + prefixLength + initialLength + restLength, suffix, suffixLength);
+    selector[prefixLength + initialLength + restLength + suffixLength] = '\0';
+    return sel_registerName(selector);
 }
 
 @interface ETManager ()
@@ -58,11 +80,13 @@ static ETManager *_easeThemeManager;
 }
 
 + (NSString *)et_getSourceFilePathWithName:(NSString *)themeName {
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:themeName ofType:kETFileExtensionPlist];
-    if (!ISValidString(filePath)) {
-        filePath = [[NSBundle mainBundle] pathForResource:themeName ofType:kETFileExtensionJSON];
-    }
-    return filePath;
+    NSString *path = [[NSBundle mainBundle] bundlePath];
+    path = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@",themeName,kETFileExtensionJSON]];
+//    NSString *filePath = [[NSBundle mainBundle] pathForResource:themeName ofType:kETFileExtensionJSON];
+//    if (!ISValidString(filePath)) {
+//        filePath = [[NSBundle mainBundle] pathForResource:themeName ofType:kETFileExtensionPlist];
+//    }
+    return path;
 }
 
 + (void)saveCurrentThemeInfosWithName:(NSString *)themeName type:(NSUInteger)themeType {
@@ -87,6 +111,11 @@ static ETManager *_easeThemeManager;
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     _currentThemeName = [userDefaults objectForKey:kETCurrentThemeName];
+    if (!ISValidString(_currentThemeName)) {
+        _currentThemeName = kETThemeNameDefault;
+        [userDefaults setObject:kETThemeNameDefault forKey:kETCurrentThemeName];
+        [userDefaults synchronize];
+    }
     return _currentThemeName;
 }
 
@@ -113,7 +142,8 @@ static ETManager *_easeThemeManager;
         return _themeDic;
     }
     if (!ISValidString(_resourcesPath)) {
-        _resourcesPath = [self getCurrentThemeName];
+        NSString *currentThemeName = [self getCurrentThemeName];
+        _resourcesPath = [self et_getSourceFilePathWithName:currentThemeName];
         NSData *data = [NSData dataWithContentsOfFile:_resourcesPath];
         if (!data) return nil;
         _themeDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
@@ -128,9 +158,15 @@ static ETManager *_easeThemeManager;
 
 @implementation ETManager (ETSerialization)
 
++ (NSDictionary *)et_getObjVectorOperationKV {
+    return @{
+             kETArgColor : @"et_colorWithPath:",
+             };
+}
+
 + (UIColor *)et_colorWithPath:(NSString *)path {
     NSString *colorHexStr = [[self getEaseThemeConfigFileData] valueForKeyPath:path];
-    if (!colorHexStr) return nil;
+    if (!ISValidString(colorHexStr)) return nil;
     return [self et_colorFromString:colorHexStr];
 }
 

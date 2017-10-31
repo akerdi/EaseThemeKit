@@ -9,29 +9,40 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-static NSString *const kETThemeNameDefault = @"default";
-static NSString *const kETCurrentThemeName = @"kETCurrentThemeName";
-static NSString *const kETCurrentThemeType = @"kETCurrentThemeType";
+typedef NSString ETThemeName;
 
-static inline BOOL (ISValidString)(NSString *inputString) {
+SEL _Nullable getSelectorWithPattern(const char * _Nullable prefix, const char * _Nullable key, const char * _Nullable suffix);
+
+typedef NS_ENUM(NSInteger, ETThemeSourceType) {
+    ETThemeSourceType_bundle,
+    ETThemeSourceType_sandbox
+};
+
+static NSString * _Nullable const kETThemeNameDefault = @"default";
+static NSString * _Nonnull const kETCurrentThemeName = @"kETCurrentThemeName";
+static NSString * _Nullable const kETCurrentThemeType = @"kETCurrentThemeType";
+
+static inline BOOL (ISValidString)(NSString *_Nullable inputString) {
     return inputString&&inputString.length;
 }
 
 @interface ETManager: NSObject
 
-+ (instancetype)sharedInstance;
++ (instancetype _Nonnull)sharedInstance;
 
 @end
 
 @interface ETManager (ETSerialization)
 
-+ (UIColor *)et_colorWithPath:(NSString *)path;
++ (NSDictionary *_Nonnull)et_getObjVectorOperationKV;
+
++ (UIColor *_Nonnull)et_colorWithPath:(NSString *_Nonnull)path;
 
 @end
 
 
 @interface ETManager (ETTool)
 
-+ (UIColor *)et_colorFromString:(NSString *)hexStr;
++ (UIColor *_Nonnull)et_colorFromString:(NSString *_Nullable)hexStr;
 
 @end

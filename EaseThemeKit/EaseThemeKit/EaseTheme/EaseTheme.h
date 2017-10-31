@@ -8,6 +8,26 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <objc/runtime.h>
+
+#define ETThemeCategoryDeclare(ClassName, PropertyClassName)\
+@interface ClassName (ET)\
+@property (nonatomic, strong) PropertyClassName *et;\
+@end
+
+#define ETThemeCategoryImplementation(ClassName, PropertyClassName)\
+extern void *kETKey;\
+@implementation ClassName (ET)\
+@dynamic et;\
+- (PropertyClassName *)et {\
+    PropertyClassName *obj = objc_getAssociatedObject(self, kETKey);\
+    if (!obj) {\
+        obj = [PropertyClassName easeThemeWithThemer:self];\
+        objc_setAssociatedObject(self, kETKey, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);\
+    }\
+    return obj;\
+}\
+@end
 
 #define ETBlockDeclare(Class)\
 @class Class;\
@@ -39,7 +59,7 @@ ET2DBoolBlockDeclare(EaseTheme)
 
 + (instancetype)easeThemeWithThemer:(id)themer;
 
-- (instancetype)initWithThemeWithThemer:(id)themer;
+- (instancetype)initWithThemer:(id)themer;
 
 - (void)setImageRenderingMode:(UIImageRenderingMode)renderingMode;
 
