@@ -16,4 +16,16 @@
 
 @end
 
-ETThemeCategoryImplementation(UIView, ETView);
+
+extern void *kETKey;
+@implementation UIView (ET)
+@dynamic et;
+- (ETView *)et {
+    ETView *obj = objc_getAssociatedObject(self, kETKey);
+    if (!obj) {
+        obj = [ETView easeThemeWithThemer:self];
+        objc_setAssociatedObject(self, kETKey, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return obj;
+}
+@end

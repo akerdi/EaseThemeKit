@@ -16,4 +16,6 @@ ETBlockDeclare(ETView)
 
 @end
 
-ETThemeCategoryDeclare(UIView, ETView);
+@interface UIView (ET)
+@property (nonatomic, strong) ETView *et;
+@end

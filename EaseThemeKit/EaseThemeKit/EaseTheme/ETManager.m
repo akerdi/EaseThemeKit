@@ -80,13 +80,11 @@ static ETManager *_easeThemeManager;
 }
 
 + (NSString *)et_getSourceFilePathWithName:(NSString *)themeName {
-    NSString *path = [[NSBundle mainBundle] bundlePath];
-    path = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@",themeName,kETFileExtensionJSON]];
-//    NSString *filePath = [[NSBundle mainBundle] pathForResource:themeName ofType:kETFileExtensionJSON];
-//    if (!ISValidString(filePath)) {
-//        filePath = [[NSBundle mainBundle] pathForResource:themeName ofType:kETFileExtensionPlist];
-//    }
-    return path;
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:themeName ofType:kETFileExtensionJSON];
+    if (!ISValidString(filePath)) {
+        filePath = [[NSBundle mainBundle] pathForResource:themeName ofType:kETFileExtensionPlist];
+    }
+    return filePath;
 }
 
 + (void)saveCurrentThemeInfosWithName:(NSString *)themeName type:(NSUInteger)themeType {
@@ -150,7 +148,7 @@ static ETManager *_easeThemeManager;
     }else{
         _themeDic = [NSDictionary dictionaryWithContentsOfFile:_resourcesPath];
     }
-    if (!_themeDic||[_themeDic isKindOfClass:[NSDictionary class]]) return nil;
+    if (!_themeDic||![_themeDic isKindOfClass:[NSDictionary class]]) return nil;
     return _themeDic;
 }
 
