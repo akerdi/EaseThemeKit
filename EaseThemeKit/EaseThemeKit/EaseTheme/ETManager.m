@@ -15,7 +15,7 @@ static NSString *kETFileExtensionPlist = @"plist";
 static NSString *kETFileExtensionJSON = @"json";
 
 static inline UIColor *(ETRGBHex)(NSUInteger hex) {
-    return [UIColor colorWithRed:((float)((hex&0xFF0000)>>16))/255.0 green:((float)((hex&0xFF00)>>16))/255.0 blue:((float)((hex&0xFF)>>16))/255.0 alpha:1.0];
+    return [UIColor colorWithRed:((float)((hex&0xFF0000)>>16))/255.0 green:((float)((hex&0xFF00)>>8))/255.0 blue:((float)((hex&0xFF)))/255.0 alpha:1.0];
 }
 
 SEL _Nullable getSelectorWithPattern(const char * _Nullable prefix, const char * _Nullable key, const char * _Nullable suffix) {
@@ -59,7 +59,7 @@ static ETManager *_easeThemeManager;
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _easeThemeManager = [self allocWithZone:zone];
+        _easeThemeManager = [super allocWithZone:zone];
     });
     return _easeThemeManager;
 }
@@ -124,6 +124,7 @@ static ETManager *_easeThemeManager;
     
     if (ISValidString(_resourcesPath)) {
         NSUInteger currentThemeType = 0;//默认为0
+        _themeDic = nil;
         [self saveCurrentThemeInfosWithName:themeName type:currentThemeType];
         for (EaseTheme *easeTheme in [ETManager sharedInstance].weakArray) {
             [easeTheme updateThemes];
@@ -131,6 +132,10 @@ static ETManager *_easeThemeManager;
         return YES;
     }
     return NO;
+}
+
+- (void)addThemer:(id)themer {
+    [self.weakArray addObject:themer];
 }
 
 #pragma mark - fetch resource
@@ -146,7 +151,9 @@ static ETManager *_easeThemeManager;
         if (!data) return nil;
         _themeDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
     }else{
-        _themeDic = [NSDictionary dictionaryWithContentsOfFile:_resourcesPath];
+        NSData *data = [NSData dataWithContentsOfFile:_resourcesPath];
+        if (!data) return nil;
+        _themeDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
     }
     if (!_themeDic||![_themeDic isKindOfClass:[NSDictionary class]]) return nil;
     return _themeDic;

@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, ETThemeSourceType) {
     ETThemeSourceType_sandbox
 };
 
-static NSString * _Nullable const kETThemeNameDefault = @"default";
+static NSString * _Nullable const kETThemeNameDefault = @"typewriter";
 static NSString * _Nonnull const kETCurrentThemeName = @"kETCurrentThemeName";
 static NSString * _Nullable const kETCurrentThemeType = @"kETCurrentThemeType";
 
@@ -29,6 +29,10 @@ static inline BOOL (ISValidString)(NSString *_Nullable inputString) {
 @interface ETManager: NSObject
 
 + (instancetype _Nonnull)sharedInstance;
+
++ (BOOL)shiftThemeName:(NSString *_Nullable)themeName;
+
+- (void)addThemer:(id)themer;
 
 @end
 

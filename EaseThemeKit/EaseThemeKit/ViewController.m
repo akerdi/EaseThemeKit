@@ -19,7 +19,23 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(100, 100, 100, 100);
+    button.backgroundColor = [UIColor redColor];
+    [self.view addSubview:button];
+    [button addTarget:self action:@selector(gogogo:) forControlEvents:UIControlEventTouchUpInside];
+    
     self.view.et.backgroundColor(@"Global.backgroundColor");
+}
+
+- (void)gogogo:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    if (sender.selected) {
+        [ETManager shiftThemeName:@"typewriter"];
+    }else{
+        [ETManager shiftThemeName:@"default"];
+    }
+    
 }
 
 

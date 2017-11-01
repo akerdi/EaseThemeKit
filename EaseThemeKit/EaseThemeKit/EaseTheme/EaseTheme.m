@@ -72,6 +72,7 @@ NSTimeInterval const ETThemeSkinChangeDuration = 0.25;
     if (self=[super init]) {
         _themer = themer;
         _imageRenderingMode = UIImageRenderingModeAlwaysOriginal;
+        [[ETManager sharedInstance] addThemer:self];
     }
     return self;
 }
@@ -224,6 +225,7 @@ void const *kETKey = &kETKey;
     if (!et) {
         et = [EaseTheme easeThemeWithThemer:self];
         objc_setAssociatedObject(self, kETKey, et, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        [[ETManager sharedInstance] addThemer:self];
     }
     return et;
 }

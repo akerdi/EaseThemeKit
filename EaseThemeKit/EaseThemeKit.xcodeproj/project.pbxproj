@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DE6851B91FA8DCD800A76476 /* default.json in Resources */ = {isa = PBXBuildFile; fileRef = DE6851B61FA8DC1500A76476 /* default.json */; };
 		F92A6E601FA6CD700006AF6B /* ETView.m in Sources */ = {isa = PBXBuildFile; fileRef = F92A6E5F1FA6CD700006AF6B /* ETView.m */; };
 		F94499C41FA874B80067EE42 /* ETTrash.m in Sources */ = {isa = PBXBuildFile; fileRef = F94499C31FA874B80067EE42 /* ETTrash.m */; };
+		F9449A151FA966A60067EE42 /* typewriter.json in Resources */ = {isa = PBXBuildFile; fileRef = F9449A141FA9669D0067EE42 /* typewriter.json */; };
+		F9449A161FA996CA0067EE42 /* default.json in Resources */ = {isa = PBXBuildFile; fileRef = DE6851B61FA8DC1500A76476 /* default.json */; };
 		F9C52F161FA49394002FD5E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C52F151FA49394002FD5E8 /* AppDelegate.m */; };
 		F9C52F191FA49394002FD5E8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C52F181FA49394002FD5E8 /* ViewController.m */; };
 		F9C52F1C1FA49394002FD5E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9C52F1A1FA49394002FD5E8 /* Main.storyboard */; };
@@ -28,6 +29,7 @@
 		F94499C21FA874B80067EE42 /* ETTrash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETTrash.h; sourceTree = "<group>"; };
 		F94499C31FA874B80067EE42 /* ETTrash.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETTrash.m; sourceTree = "<group>"; };
 		F94499C51FA88B490067EE42 /* EaseThemeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EaseThemeKit.h; sourceTree = "<group>"; };
+		F9449A141FA9669D0067EE42 /* typewriter.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = typewriter.json; sourceTree = "<group>"; };
 		F9C52F111FA49394002FD5E8 /* EaseThemeKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EaseThemeKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9C52F141FA49394002FD5E8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F9C52F151FA49394002FD5E8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				F9C52F171FA49394002FD5E8 /* ViewController.h */,
 				F9C52F181FA49394002FD5E8 /* ViewController.m */,
 				F9C52F1A1FA49394002FD5E8 /* Main.storyboard */,
+				F9449A141FA9669D0067EE42 /* typewriter.json */,
 				DE6851B61FA8DC1500A76476 /* default.json */,
 				F9C52F1D1FA49394002FD5E8 /* Assets.xcassets */,
 				F9C52F1F1FA49394002FD5E8 /* LaunchScreen.storyboard */,
@@ -176,7 +179,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE6851B91FA8DCD800A76476 /* default.json in Resources */,
+				F9449A161FA996CA0067EE42 /* default.json in Resources */,
+				F9449A151FA966A60067EE42 /* typewriter.json in Resources */,
 				F9C52F211FA49394002FD5E8 /* LaunchScreen.storyboard in Resources */,
 				F9C52F1E1FA49394002FD5E8 /* Assets.xcassets in Resources */,
 				F9C52F1C1FA49394002FD5E8 /* Main.storyboard in Resources */,
