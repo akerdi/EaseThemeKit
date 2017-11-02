@@ -120,6 +120,7 @@ static ETManager *_easeThemeManager;
 + (BOOL)shiftThemeName:(NSString *)themeName {
     if (ISValidString(themeName)&&[themeName isEqualToString:_currentThemeName]) return NO;
     if (!ISValidString(themeName)) themeName = kETThemeNameDefault;
+    _currentThemeName = themeName;
     _resourcesPath = [self et_getSourceFilePathWithName:themeName];
     
     if (ISValidString(_resourcesPath)) {

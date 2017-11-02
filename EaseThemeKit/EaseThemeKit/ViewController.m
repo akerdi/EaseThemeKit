@@ -26,6 +26,10 @@
     tableView.dataSource = self;
     [self.view addSubview:tableView];
     
+    UIView *headView = [UIView new];
+    headView.frame = CGRectMake(0, 0, self.view.frame.size.width, 100);
+    tableView.tableHeaderView = headView;
+    
     self.themeArray = @[@"default",@"typewriter"];
     
     tableView.et.backgroundColor(@"Global.backgroundColor");
