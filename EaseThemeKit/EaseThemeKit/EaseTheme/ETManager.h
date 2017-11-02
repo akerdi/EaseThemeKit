@@ -30,9 +30,28 @@ static inline BOOL (ISValidString)(NSString *_Nullable inputString) {
 
 + (instancetype _Nonnull)sharedInstance;
 
+/**
+ 切换主题
+
+ @param themeName 主题名，如果不合格，则默认default
+ @return 是否切换成功
+ */
 + (BOOL)shiftThemeName:(NSString *_Nullable)themeName;
 
-- (void)addThemer:(id)themer;
+/**
+ 将该element 加入到hashTable 进行之后的遍历使用
+
+ @param themer <EaseTheme>
+ */
+- (void)addThemer:(id _Nonnull )themer;
+
+
+/**
+ 获取当前主题名 eg:default
+
+ @return "default"
+ */
++ (NSString *_Nonnull)getCurrentThemeName;
 
 @end
 

@@ -9,7 +9,9 @@
 #import "ViewController.h"
 #import "EaseThemeKit.h"
 
-@interface ViewController ()
+@interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
+
+@property (nonatomic, strong) NSArray *themeArray;
 
 @end
 
@@ -19,23 +21,42 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(100, 100, 100, 100);
-    button.backgroundColor = [UIColor redColor];
-    [self.view addSubview:button];
-    [button addTarget:self action:@selector(gogogo:) forControlEvents:UIControlEventTouchUpInside];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    [self.view addSubview:tableView];
     
-    self.view.et.backgroundColor(@"Global.backgroundColor");
+    self.themeArray = @[@"default",@"typewriter"];
+    
+    tableView.et.backgroundColor(@"Global.backgroundColor");
 }
 
-- (void)gogogo:(UIButton *)sender {
-    sender.selected = !sender.selected;
-    if (sender.selected) {
-        [ETManager shiftThemeName:@"typewriter"];
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.themeArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"111"];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"111"];
+    }
+    NSString *str = self.themeArray[indexPath.row];
+    cell.textLabel.text = str;
+    
+    NSString *string = [ETManager getCurrentThemeName];
+    if ([str isEqualToString:string]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }else{
-        [ETManager shiftThemeName:@"default"];
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *str = self.themeArray[indexPath.row];
+    [ETManager shiftThemeName:str];
+    [tableView reloadData];
 }
 
 

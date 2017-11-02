@@ -199,16 +199,12 @@ NSTimeInterval const ETThemeSkinChangeDuration = 0.25;
     void(*msg)(id, SEL, id) = (void(*)(id, SEL, id))objc_msgSend;
     if ([obj isKindOfClass:[UIColor class]]) {
         __block typeof(self) weakSelf = self;
-        [UIView animateWithDuration:ETThemeSkinChangeDuration animations:^{
-            msg(weakSelf.themer, sel, obj);
-        }];
+        msg(weakSelf.themer, sel, obj);
     } else {
         msg(self.themer, sel, obj);
     }
     return YES;
 }
-
-
 
 @end
 
