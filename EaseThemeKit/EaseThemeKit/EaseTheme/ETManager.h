@@ -59,7 +59,26 @@ static inline BOOL (ISValidString)(NSString *_Nullable inputString) {
 
 + (NSDictionary *_Nonnull)et_getObjVectorOperationKV;
 
++ (NSDictionary *_Nonnull)et_getIntVectorOperationKV;
+
++ (NSDictionary *_Nonnull)et_getFloatVectorOperationKV;
+
++ (CGFloat)et_floatWithPath:(NSString *_Nonnull)path;
++ (BOOL)et_boolWithPath:(NSString *_Nonnull)path;
++ (NSInteger)et_integerWithPath:(NSString *_Nonnull)path;
++ (NSString *_Nonnull)et_stringWithPath:(NSString *_Nonnull)path;
+
 + (UIColor *_Nonnull)et_colorWithPath:(NSString *_Nonnull)path;
++ (CGColorRef _Nonnull )et_cgColorWithPath:(NSString *_Nonnull)path;
+
++ (UIImage *_Nonnull)et_imageWithPath:(NSString *_Nonnull)path;
++ (UIFont *_Nonnull)et_fontWithPath:(NSString *_Nonnull)path;
++ (NSDictionary *_Nonnull)et_origDictionaryWithPath:(NSString *_Nonnull)path;
++ (NSDictionary *_Nonnull)et_titleTextAttributesDictionaryWithPath:(NSString *_Nonnull)path;
++ (UIStatusBarStyle)et_statusBarStyleWithPath:(NSString *_Nonnull)path;
++ (UIBarStyle)et_barStyleWithPath:(NSString *_Nonnull)path;
++ (UIKeyboardAppearance)et_keyboardAppearanceWithPath:(NSString *_Nonnull)path;
++ (UIActivityIndicatorViewStyle)et_activityIndicatorStyleWithPath:(NSString * _Nonnull)path;
 
 @end
 

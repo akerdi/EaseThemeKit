@@ -64,7 +64,8 @@ ET2DBoolBlockDeclare(EaseTheme)
 - (void)setImageRenderingMode:(UIImageRenderingMode)renderingMode;
 
 /**
- //更新主题方法 !!!
+ * 更新主题方法 !!!
+ * ETManager 内部更新时轮训使用使用
  */
 - (void)updateThemes;
 
@@ -81,6 +82,13 @@ ET2DBoolBlockDeclare(EaseTheme)
 - (EaseThemeBlock)et_textAttributesBlockWithName:(NSString *)name;
 - (EaseThemeBlock)et_boolBlockWithName:(NSString *)name;
 - (EaseThemeBlock)et_imageBlockWithName:(NSString *)name;
+- (EaseThemeBlock)et_indicatorViewStyleBlockWithName:(NSString *)name;
+- (EaseThemeBlock)et_barStyleBlockWithName:(NSString *)name;
+
+- (EaseTheme2DUIntBlock)et_titleColorForStateBlockWithName:(NSString *)name;
+- (EaseTheme2DUIntBlock)et_imageForStateBlockWithName:(NSString *)name;
+- (EaseTheme2DUIntBlock)et_titleTextAttributesForStateBlockWithName:(NSString *)name;
+- (EaseTheme2DUIntBlock)et_applicationForStyleBlockWithName:(NSString *)name;
 
 @end
 
