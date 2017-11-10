@@ -5,7 +5,7 @@
 
 这时出现了个库：[SakuraKit](https://github.com/tingxins/SakuraKit)
 
-本篇也是对[SakuraKit](https://github.com/tingxins/SakuraKit) 的学习，甚至抄写。所以推荐大家使用原版本[SakuraKit](https://github.com/tingxins/SakuraKit)。
+本篇也是对[SakuraKit](https://github.com/tingxins/SakuraKit) 的学习，抄写。所以推荐大家使用原版本[SakuraKit](https://github.com/tingxins/SakuraKit)。
 
 同时希望大家能指出小弟的缺点。自我感觉，自己在一个上升期的一个瓶颈，所以必须开始阅读、抄写源码才能突破重围。
 最近自己有处理一些私下玩意，这篇也是硬着头皮抽出来完成的。我自己也会进行总结。
