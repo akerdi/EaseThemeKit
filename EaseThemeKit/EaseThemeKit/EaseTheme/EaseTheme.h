@@ -85,10 +85,11 @@ ET2DBoolBlockDeclare(EaseTheme)
 - (EaseThemeBlock)et_indicatorViewStyleBlockWithName:(NSString *)name;
 - (EaseThemeBlock)et_barStyleBlockWithName:(NSString *)name;
 
+- (EaseTheme2DUIntBlock)et_titleForStateBlockWithName:(NSString *)name;
 - (EaseTheme2DUIntBlock)et_titleColorForStateBlockWithName:(NSString *)name;
 - (EaseTheme2DUIntBlock)et_imageForStateBlockWithName:(NSString *)name;
 - (EaseTheme2DUIntBlock)et_titleTextAttributesForStateBlockWithName:(NSString *)name;
-- (EaseTheme2DUIntBlock)et_applicationForStyleBlockWithName:(NSString *)name;
+- (EaseTheme2DBoolBlock)et_applicationForStyleBlockWithName:(NSString *)name;
 
 @end
 

@@ -43,6 +43,13 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"111"];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"111"];
+        
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(100, 0, 80, 44);
+        [cell.contentView addSubview:button];
+        button.et.title(@"First.title",UIControlStateNormal);
+        button.et.titleColor(@"Fourth.editProfileBackgroundColor",UIControlStateNormal);
+        
     }
     NSString *str = self.themeArray[indexPath.row];
     cell.textLabel.text = str;

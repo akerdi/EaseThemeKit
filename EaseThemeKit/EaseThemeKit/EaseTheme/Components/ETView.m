@@ -14,18 +14,15 @@
     return (ETViewBlock)[super et_colorBlockWithName:NSStringFromSelector(_cmd)];
 }
 
-@end
-
-
-extern void *kETKey;
-@implementation UIView (ET)
-@dynamic et;
-- (ETView *)et {
-    ETView *obj = objc_getAssociatedObject(self, kETKey);
-    if (!obj) {
-        obj = [ETView easeThemeWithThemer:self];
-        objc_setAssociatedObject(self, kETKey, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }
-    return obj;
+- (ETViewBlock)alpha {
+    return (ETViewBlock)[super et_floatBlockWithName:NSStringFromSelector(_cmd)];
 }
+
+- (ETViewBlock)tintColor {
+    return (ETViewBlock)[super et_colorBlockWithName:NSStringFromSelector(_cmd)];
+}
+
 @end
+
+ETThemeCategoryImplementation(UIView, ETView)
+

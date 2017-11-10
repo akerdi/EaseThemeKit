@@ -10,7 +10,7 @@
 #define EaseThemeKit_h
 
 #import "ETManager.h"
-#import "ETView.h"
+#import "ETButton.h"
 
 
 #endif /* EaseThemeKit_h */

@@ -13,9 +13,9 @@ ETBlockDeclare(ETView)
 @interface ETView : EaseTheme
 
 - (ETViewBlock)backgroundColor;
+- (ETViewBlock)alpha;
+- (ETViewBlock)tintColor;
 
 @end
 
-@interface UIView (ET)
-@property (nonatomic, strong) ETView *et;
-@end
+ETThemeCategoryDeclare(UIView, ETView)

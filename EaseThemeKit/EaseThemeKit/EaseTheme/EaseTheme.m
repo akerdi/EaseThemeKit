@@ -99,6 +99,7 @@ NSTimeInterval const ETThemeSkinChangeDuration = 0.25;
 
 - (void)updateThemes {
     [self updateThemeWith1DSkins:[self getSkins1D]];
+    [self updateThemesWith2DSkins:[self getSkins2D]];
 }
 
 #pragma mark - Test Refactor
@@ -117,6 +118,32 @@ NSTimeInterval const ETThemeSkinChangeDuration = 0.25;
     }
     *flag = NO;
     return nil;
+}
+
+- (NSInteger)getIntVectorWithArgType:(NSString *)argType path:(NSString *)path exist:(BOOL *)flag {
+    NSString *selStr = [[ETManager et_getIntVectorOperationKV] objectForKey:argType];
+    if (ISValidString(selStr)&&ISValidString(path)) {
+        *flag = YES;
+        SEL sel = NSSelectorFromString(selStr);
+        NSInteger(*msg)(id, SEL, id) = (NSInteger(*)(id, SEL, id))objc_msgSend;
+        NSInteger vector = msg(ETManager.class, sel, path);
+        return vector;
+    }
+    *flag = NO;
+    return 0;
+}
+
+- (CGFloat)getFloatVectorWithArgType:(NSString *)argType path:(NSString *)path exist:(BOOL *)flag {
+    NSString *selStr = [[ETManager et_getFloatVectorOperationKV] objectForKey:argType];
+    if (selStr.length && path.length) {
+        *flag = YES;
+        SEL sel = NSSelectorFromString(selStr);
+        CGFloat(*msg)(id, SEL, id) = (CGFloat(*)(id, SEL, id))objc_msgSend;
+        CGFloat vector = msg(ETManager.class, sel, path);
+        return vector;
+    }
+    *flag = NO;
+    return 0;
 }
 
 #pragma mark - 1D Update Methods
@@ -139,7 +166,68 @@ NSTimeInterval const ETThemeSkinChangeDuration = 0.25;
             [self send1DMsgWithSEL:sel structValue:firstObject];
             return;
         }
+        
+        NSInteger intValue = [self getIntVectorWithArgType:skinKey path:skinValue exist:&flag];
+        if (flag) {
+            [self send1DMsgWithSEL:sel intValue:intValue];
+            return;
+        }
+        
+        CGFloat floatValue = [self getFloatVectorWithArgType:skinKey path:skinValue exist:&flag];
+        if (flag) {
+            [self send1DMsgWithSEL:sel floatValue:floatValue];
+            return;
+        }
     }];
+}
+
+#pragma mark - 2D Update Methods
+
+- (void)updateThemesWith2DSkins:(NSDictionary *)themeSkins2D {
+    [themeSkins2D enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        SEL sel = NSSelectorFromString((NSString *)key);
+        if (![obj isKindOfClass:[NSDictionary class]]) return ;
+        NSDictionary *valueDict = (NSDictionary *)obj;
+        
+        NSNumber *numValue = valueDict[kETArgInt];
+        NSMutableDictionary *tempValueDict = [NSMutableDictionary dictionaryWithDictionary:valueDict];
+        [tempValueDict removeObjectForKey:kETArgInt];
+        
+        NSString *skinKey = tempValueDict.allKeys.firstObject;
+        NSString *skinValue = tempValueDict[skinKey];
+        
+        BOOL flag = false;
+        id firstObject = [self getObjVectorWithArgType:skinKey path:skinValue exist:&flag];
+        if (flag) {
+            [self enumObjectTypeMsg2DSendWithSEL:sel object:firstObject numValue:numValue];
+            return;
+        }
+        NSInteger intValue = [self getIntVectorWithArgType:skinKey path:skinValue exist:&flag];
+        if (flag) {
+            [self enumValueTypeMsg2DSendWithSEL:sel intValue:intValue numValue:numValue];
+            return;
+        }
+    }];
+}
+
+- (void)enumObjectTypeMsg2DSendWithSEL:(SEL)sel object:(NSObject *)object numValue:(NSNumber *)numValue {
+    if (object) {
+        NSInteger value = [numValue integerValue];
+        NSString *selStr = NSStringFromSelector(sel);
+        NSString *occurrencesSTr = [NSString stringWithFormat:@"%ld",(long)value];
+        selStr = [selStr stringByReplacingOccurrencesOfString:occurrencesSTr withString:@""];
+        SEL realSel = NSSelectorFromString(selStr);
+        [self send2DMsgWithSEL:realSel object:object intValue:value];
+    }
+}
+
+- (void)enumValueTypeMsg2DSendWithSEL:(SEL)sel intValue:(NSInteger)intValue numValue:(NSNumber *)numValue {
+    NSInteger value = [numValue integerValue];
+    NSString *selStr = NSStringFromSelector(sel);
+    NSString *occurrencesStr = [NSString stringWithFormat:@"%ld",(long)value];
+    selStr = [selStr stringByReplacingOccurrencesOfString:occurrencesStr withString:@""];
+    SEL realSel = NSSelectorFromString(selStr);
+    [self send2DMsgWithSEL:realSel intValue:intValue intValue:value];
 }
 
 #pragma mark - Message Methods
@@ -190,7 +278,16 @@ NSTimeInterval const ETThemeSkinChangeDuration = 0.25;
 
 #pragma mark - 2
 
-- (instancetype)send2DMsgIntAndIntWithName:(NSString *)name keyPath:(NSString *)keyPath integer:(NSInteger)integer selTail:(NSString *)selTail argType:(NSString *)arg valueBlock:(NSObject *(^)(NSString *))valueBlock {
+- (instancetype)send2DMsgIntAndIntWithName:(NSString *)name keyPath:(NSString *)keyPath integer:(NSInteger)integer selTail:(NSString *)selTail argType:(NSString *)argType valueBlock:(NSInteger (^)(NSString *))valueBlock {
+    SEL sel = [self prepareForSkin2DWithName:name keyPath:keyPath integer:integer argType:argType selTail:selTail];
+    
+    if (!valueBlock) return [ETTrash easeThemeWithThemer:self];
+    NSInteger value = valueBlock(keyPath);
+    [self send2DMsgWithSEL:sel intValue:value intValue:integer];
+    return self;
+}
+
+- (instancetype)send2DMsgObjectAndIntWithName:(NSString *)name keyPath:(NSString *)keyPath integer:(NSInteger)integer selTail:(NSString *)selTail argType:(NSString *)arg valueBlock:(NSObject *(^)(NSString *))valueBlock {
     SEL sel = [self prepareForSkin2DWithName:name keyPath:keyPath integer:integer argType:arg selTail:selTail];
     
     if (!valueBlock) return [ETTrash easeThemeWithThemer:self];
@@ -199,7 +296,6 @@ NSTimeInterval const ETThemeSkinChangeDuration = 0.25;
     [self send2DMsgWithSEL:sel object:obj intValue:integer];
     return self;
 }
-
 
 - (SEL)prepareForSkin2DWithName:(NSString *)name keyPath:(NSString *)keyPath integer:(NSInteger)integer argType:(NSString *)argType selTail:(NSString *)selTail {
     const char *charName = name.UTF8String;
@@ -213,8 +309,6 @@ NSTimeInterval const ETThemeSkinChangeDuration = 0.25;
     [[self getSkins2D] setObject:attrDict forKey:selStrAppend];
     return NSSelectorFromString(selStr);
 }
-
-
 
 #pragma mark - 1D Block
 
@@ -301,13 +395,42 @@ NSTimeInterval const ETThemeSkinChangeDuration = 0.25;
 
 - (EaseTheme2DUIntBlock)et_titleColorForStateBlockWithName:(NSString *)name {
     return ^EaseTheme *(NSString *path, UIControlState state) {
-        return [self send2D]
-    }
+        return [self send2DMsgObjectAndIntWithName:name keyPath:path integer:state selTail:kET2DStateSELTail argType:kETArgColor valueBlock:^NSObject *(NSString *keyPath) {
+            return [ETManager et_colorWithPath:keyPath];
+        }];
+    };
 }
-- (EaseTheme2DUIntBlock)et_imageForStateBlockWithName:(NSString *)name;
-- (EaseTheme2DUIntBlock)et_titleTextAttributesForStateBlockWithName:(NSString *)name;
-- (EaseTheme2DUIntBlock)et_applicationForStyleBlockWithName:(NSString *)name {
-    return <#expression#>
+
+- (EaseTheme2DUIntBlock)et_imageForStateBlockWithName:(NSString *)name {
+    return ^EaseTheme *(NSString *path, UIControlState state) {
+        return [self send2DMsgObjectAndIntWithName:name keyPath:path integer:state selTail:kET2DStateSELTail argType:kETArgImage valueBlock:^NSObject *(NSString *keyPath) {
+            return [ETManager et_imageWithPath:keyPath];
+        }];
+    };
+}
+
+- (EaseTheme2DUIntBlock)et_titleTextAttributesForStateBlockWithName:(NSString *)name {
+    return ^EaseTheme *(NSString *path, UIControlState state) {
+        return [self send2DMsgObjectAndIntWithName:name keyPath:path integer:state selTail:kET2DStateSELTail argType:kETArgTextAttributes valueBlock:^NSObject *(NSString *keyPath) {
+            return [ETManager et_titleTextAttributesDictionaryWithPath:keyPath];
+        }];
+    };
+}
+
+- (EaseTheme2DUIntBlock)et_titleForStateBlockWithName:(NSString *)name {
+    return ^EaseTheme *(NSString *path, UIControlState state) {
+        return [self send2DMsgObjectAndIntWithName:name keyPath:path integer:state selTail:kET2DStateSELTail argType:kETArgTitle valueBlock:^NSObject *(NSString *keyPath) {
+            return [ETManager et_stringWithPath:keyPath];
+        }];
+    };
+}
+
+- (EaseTheme2DBoolBlock)et_applicationForStyleBlockWithName:(NSString *)name {
+    return ^EaseTheme *(NSString *path, BOOL animated) {
+        return [self send2DMsgIntAndIntWithName:name keyPath:path integer:animated selTail:kET2DAnimatedSELTail argType:kETArgStatusBarStyle valueBlock:^NSInteger(NSString *keyPath) {
+            return [ETManager et_statusBarStyleWithPath:keyPath];
+        }];
+    };
 }
 
 

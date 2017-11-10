@@ -6,9 +6,22 @@
 //  Copyright © 2017年 XXT. All rights reserved.
 //
 
-#import "EaseTheme.h"
+#import "ETView.h"
 
-@interface ETButton : EaseTheme
+ETBlockDeclare(ETButton)
+ET2DStateBlockDeclare(ETButton)
 
+@interface ETButton : ETView
+
+- (ETButtonBlock)backgroundColor;
+- (ETButtonBlock)alpha;
+- (ETButtonBlock)tintColor;
+
+- (ETButton2DStateBlock)title;
+- (ETButton2DStateBlock)titleColor;
+- (ETButton2DStateBlock)image;
+- (ETButton2DStateBlock)backgroundImage;
 
 @end
+
+ETThemeCategoryDeclare(UIButton, ETButton)
